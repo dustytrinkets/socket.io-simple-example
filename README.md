@@ -1,3 +1,5 @@
+![alt text](https://i.udemycdn.com/course/480x270/1934362_ca3c.jpg)
+
 # Simple socket.io client and server example
 
 Simple Socket.io client and server with node and express.
