@@ -4,26 +4,36 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const stdin = process.openStdin();
 
-//listener for the console inputs
+const users = [];
+
+stdin.addListener("data", (d) => {
+  let msg = d.toString().trim();
+  io.emit('space', msg);
+});
 
 //on clients connection
 io.on('connection', function (socket) {
-        console.log('A client is connected!');
-        io.of('/').clients((error, clients) => {
-          if (error) throw error;
-          console.log(`there are ${clients.length} clients connected`)
-        });
+  
+  users.push(socket.id);
+  console.log(users)
+  
+  io.of('/').clients((error, clients) => {
+    if (error) throw error;
+    if (clients) {console.log(`There are ${clients.length} clients connected`)}
+  });
 
-        socket.on('disconnect', function(test){
-          console.log('A client disconnected');
-        });      
-        socket.on("space", (msg) => console.info(msg));
-        stdin.addListener("data", function(d) {
-          let msg = d.toString().trim();
-          socket.emit('space', msg);
-        });
+  socket.on('disconnect', function(){
+    var idx = users.indexOf(socket.id);
+    users.splice(idx, 1);
+    console.log('A client has disconnected');
+  });      
+  socket.on("space", (msg) => console.info(msg));
+  
 
 });
+
+
+
 
 app.get('/clients', (req, res)=>{
     io.of('/').clients((error, clients) => {
@@ -31,11 +41,5 @@ app.get('/clients', (req, res)=>{
         res.send(`there are ${clients.length} clients connected`)
       });
 })
-
-
-
-
-
-
 
 server.listen(8080);
