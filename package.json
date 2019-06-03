@@ -1,0 +1,21 @@
+{
+  "name": "e6f60bd6e156714f0c5505c2be8e06d8-1e6623ab2a8f17db3b3b6937def5bd52285be37e",
+  "version": "1.0.0",
+  "description": "To see a full explanation, read my answer on SO here: https://stackoverflow.com/a/24232050/778272.",
+  "main": "client.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server.js",
+    "client": "node client.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
