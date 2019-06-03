@@ -13,6 +13,7 @@ stdin.addListener("data", (d) => {
 
 //on clients connection
 io.on('connection', function (socket) {
+  socket.broadcast.emit('space', 'New user connected')
   
   users.push(socket.id);
   console.log(`Clients ids: ${users}`)
@@ -25,12 +26,14 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function(){
     var idx = users.indexOf(socket.id);
     users.splice(idx, 1);
-    console.log('A client has disconnected');
-  });      
-  socket.on("space", (msg) => {
-    io.emit('space', msg)
-  });
+    io.emit('space', 'A client has disconnected');
+    
+  });     
   
+  socket.on("space", (msg) => {
+    socket.broadcast.emit('space', msg) //emits to everyone but the client who sends the msg
+    // io.emit('space', msg) //emits to everyone
+  });
 
 });
 
