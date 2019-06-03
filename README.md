@@ -12,4 +12,6 @@ To run the server type `npm run server`.
 
 After that, yoy can connect as a new client in different terminals by typing `npm run client`.
 
+You can now send messages through the terminal and they will be received by the clients connected.
+
 To get the number of clients call the endpoint http://localhost:8080/clients
