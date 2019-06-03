@@ -1,9 +1,9 @@
 const socket = require("socket.io-client").connect("http://localhost:8080");
 const stdin = process.openStdin();
 
-socket.on('connect', function() {
-    socket.emit('space', 'Hello space!');
-    }); 
+// socket.on('connect', function() {
+//     socket.emit('space', 'Hello space!');
+//     }); 
 
 
 socket.on('disconnect', function() {

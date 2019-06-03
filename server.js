@@ -13,28 +13,33 @@ stdin.addListener("data", (d) => {
 
 //on clients connection
 io.on('connection', function (socket) {
-  socket.broadcast.emit('space', 'New user connected')
+
+  //sends to everyone but the new client
+  socket.broadcast.emit('space', 'client ' + socket.id  + ' connected')
+
+  //sends to the new client connected
+  io.to(socket.id).emit('space', 'Welcome to the chat')
   
   users.push(socket.id);
-  console.log(`Clients ids: ${users}`)
   
-  io.of('/').clients((error, clients) => {
-    if (error) throw error;
-    if (clients) {console.log(`There are ${clients.length} clients connected`)}
+  // io.of('/').clients((error, clients) => {
+  //   if (error) throw error;
+  //   if (clients) {console.log(`There are ${clients.length} clients connected`)}
+  // });
+
+  socket.on("space", (msg) => {
+    console.log(socket.id + ': ' +msg)
+    socket.broadcast.emit('space', socket.id + ': ' + msg) //emits to everyone but the client who sends the msg
+    // io.emit('space', msg) //emits to everyone
   });
 
   socket.on('disconnect', function(){
     var idx = users.indexOf(socket.id);
     users.splice(idx, 1);
-    io.emit('space', 'A client has disconnected');
-    
+    socket.broadcast.emit('space', `${socket.id} client has disconnected`);
   });     
   
-  socket.on("space", (msg) => {
-    socket.broadcast.emit('space', msg) //emits to everyone but the client who sends the msg
-    // io.emit('space', msg) //emits to everyone
-  });
-
+  
 });
 
 app.get('/clients', (req, res)=>{
