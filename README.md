@@ -1,4 +1,3 @@
-![alt text](https://i.udemycdn.com/course/480x270/1934362_ca3c.jpg)
 
 # Simple socket.io client and server example
 
@@ -7,8 +6,10 @@ It includes an endpoint that returns the number of clients connected
 
 ## How to use
 
-To run the server: `npm run server`
+First of all install the dependencies: `npm i`.
 
-To connect as a new client: `npm run client`
+To run the server type `npm run server`.
+
+After that, yoy can connect as a new client in different terminals by typing `npm run client`.
 
 To get the number of clients call the endpoint http://localhost:8080/clients

@@ -27,7 +27,9 @@ io.on('connection', function (socket) {
     users.splice(idx, 1);
     console.log('A client has disconnected');
   });      
-  socket.on("space", (msg) => console.info(msg));
+  socket.on("space", (msg) => {
+    io.emit('space', msg)
+  });
   
 
 });
