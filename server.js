@@ -15,7 +15,7 @@ stdin.addListener("data", (d) => {
 io.on('connection', function (socket) {
   
   users.push(socket.id);
-  console.log(users)
+  console.log(`Clients ids: ${users}`)
   
   io.of('/').clients((error, clients) => {
     if (error) throw error;
@@ -31,9 +31,6 @@ io.on('connection', function (socket) {
   
 
 });
-
-
-
 
 app.get('/clients', (req, res)=>{
     io.of('/').clients((error, clients) => {
